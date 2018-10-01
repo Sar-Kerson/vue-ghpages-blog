@@ -1,9 +1,11 @@
 <template>
   <div id="app">
+    <home-menu class="menu-top-left" />
     <header class="header">
       <router-link to="/">{{ title }}</router-link>
       <div style="clear: both"/>
-      <search-bar v-if="isPageList"/>
+      <!-- 只在pagelist页面显示 -->
+      <search-bar v-if="isPageList"/> 
     </header>
     <router-view/>
     <footer-bar/>
@@ -16,13 +18,15 @@
   import conf from './config'
   import FooterBar from './components/FooterBar.vue'
   import SearchBar from './components/SearchBar.vue'
+  import HomeMenu from './components/HomeMenu.vue'
 
   export default {
     name: 'App',
 
     components: {
       FooterBar,
-      SearchBar
+      SearchBar,
+      HomeMenu
     },
 
     data () {

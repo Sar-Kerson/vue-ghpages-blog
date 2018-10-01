@@ -60,6 +60,14 @@ const config = {
         }
       },
       {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'url-loader'
+      },
+      {
         test: /\.js$/,
         use: ['babel-loader'],
         include: [resolve('src'), resolve('test')]
@@ -69,7 +77,7 @@ const config = {
         use: [{
           loader: 'file-loader',
           options: {
-            name: '[name].[ext]?[chunkhash:5]'
+            name: '[name].[ext]?[hash:5]'
           }
         }]
       }

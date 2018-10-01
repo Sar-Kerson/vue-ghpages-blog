@@ -78,7 +78,6 @@ const formatFile = ({name, sha, size}) => ({
 })
 
 export default {
-
   getList () {
     if (Cache.has('list')) {
       // Read from cache

@@ -41,6 +41,7 @@
     "babel-core": "^6.0.0",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.4",
+    "babel-plugin-component": "^1.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1",
@@ -85,14 +86,23 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "@babel/preset-es2017": "^7.0.0-beta.53",
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free-brands": "^5.0.13",
+    "@fortawesome/fontawesome-svg-core": "^1.2.4",
+    "@fortawesome/free-solid-svg-icons": "^5.3.1",
+    "@fortawesome/vue-fontawesome": "^0.1.1",
     "axios": "^0.17.1",
+    "element-ui": "^2.4.8",
     "es6-promise": "^4.2.4",
     "front-matter": "^2.3.0",
-    "marked": "^0.3.17",
+    "marked": "^0.5.1",
     "normalize.css": "^7.0.0",
     "prismjs": "^1.12.2",
     "timeago.js": "^3.0.0",
+    "url-loader": "^1.1.1",
     "vue": "^2.5.16",
+    "vue-circle-menu": "^1.1.1",
     "vue-router": "^3.0.1"
   }
 }
