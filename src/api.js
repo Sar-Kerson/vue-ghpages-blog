@@ -2,7 +2,7 @@ import axios from 'axios'
 import 'es6-promise/auto'
 
 import conf from './config'
-import { onlyTitle, onlyDate } from './utils'
+import { onlyTitle, onlyDate, onlyCategory } from './utils'
 
 /**
  * Format GitHub Api url for content list
@@ -73,6 +73,7 @@ const Cache = {
 const formatFile = ({name, sha, size}) => ({
   title: onlyTitle(name),
   date: onlyDate(name),
+  category: onlyCategory(name),
   sha,
   size
 })

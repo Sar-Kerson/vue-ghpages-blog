@@ -112,7 +112,11 @@ const config = {
     contentBase: resolve('static'),
     historyApiFallback: true,
     host: '0.0.0.0',
-    noInfo: true
+    noInfo: true,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 1000
+    }
   },
   devtool: isProd ? '#cheap-module-source-map' : '#eval-source-map'
 }
