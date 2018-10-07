@@ -97,6 +97,18 @@ export default {
     }
   },
 
+  getCategories (lists) {
+    if (Cache.has('category')) {
+      return Promise.resolve(Cache.get('category'))
+    } else {
+      let s = new Set()
+      lists.forEach(el => {
+        s.add(el.category)
+      })
+      return Promise.resolve(Array.from(s))
+    }
+  },
+
   getDetail (hash) {
     const httpOpts = {
       // https://developer.github.com/v3/media/#raw-1

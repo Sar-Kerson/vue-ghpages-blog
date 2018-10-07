@@ -1,29 +1,27 @@
 <template>
-  <section class="list-view">
-    <div
-      v-if="loading"
-      class="loading">loading..</div>
-    <div
-      v-else-if="orderedList.length === 0"
-      class="no-content">nothing..</div>
-    <div
-      v-else>
-      <el-checkbox-group 
-        v-model="checkedCategory"
-        :min="1"
-        :max="4"
-        text-color="#555"
-        fill="#888">
-        <el-checkbox 
-          v-for="category in categories" 
-          :label="category" 
-          :key="category">
-          {{ category }}
-        </el-checkbox>
-      </el-checkbox-group>
-      <p>{{ orderedList }}</p>
-
+  <div>
+    <el-checkbox-group 
+      v-model="checkedCategory"
+      :min="1"
+      :max="4"
+      text-color="#555"
+      fill="#888">
+      <el-checkbox 
+        v-for="category in categories" 
+        :label="category" 
+        :key="category">
+        {{ category }}
+      </el-checkbox>
+    </el-checkbox-group>
+    <section class="list-view">
+      <div
+        v-if="loading"
+        class="loading">loading..</div>
+      <div
+        v-else-if="orderedList.length === 0"
+        class="no-content">nothing..</div>
       <ol
+        v-else
         class="list">
         <li
           v-for="{ title, sha, date } in orderedList"
@@ -42,8 +40,8 @@
             class="item-date">{{ date | timeago }}</time>
         </li>
       </ol>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -60,7 +58,7 @@
     data () {
       return {
         checkedCategory: ['all'],
-        categories: [],
+        categories: ['all'],
         lists: [],
         loading: true
       }
@@ -69,24 +67,31 @@
     computed: {
       orderedList () {
         // Filter by title, Order by publish date, desc
-        return this.lists
+        let tmp = this.lists
           .slice()
           .sort((itemA, itemB) => (new Date(itemB.date) - new Date(itemA.date)))
+        return tmp
       }
     },
 
     watch: {
       '$route': 'loadList',
-      checkedCategory (newChecked) {
-        this.loadList()
-
+      async checkedCategory (newChecked) {
+        await this.loadList()
         if (!newChecked.includes('all')) {
           this.lists = this.lists.filter(el => {
             return newChecked.includes(el.category)
           })
         }
-        console.log(this.lists)
-        this.$forceUpdate()
+        // this.loadList().then(() => {
+        //   if (!newChecked.includes('all')) {
+        //     this.lists = this.lists.filter(el => {
+        //       return newChecked.includes(el.category)
+        //     })
+        //   }
+        // }).catch(err => {
+        //   console.log(err)
+        // })
       }
     },
 
@@ -107,18 +112,15 @@
             // eslint-disable-next-line no-console
             return console.info('[loadList]', err)
           })
-        // console.log(this.lists)
         this.loading = false
       },
 
       async loadCategory () {
-        this.categories = [
-          'all',
-          'programming',
-          'trip',
-          'movie',
-          'math'
-        ]
+        let t = await api.getCategories(this.lists)
+          .catch(err => {
+            return console.info('[loadCategory]', err)
+          })
+        this.categories = this.categories.concat(t)
       }
     }
 
